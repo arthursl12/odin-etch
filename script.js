@@ -25,9 +25,29 @@ function createGrid(size=16){
 
 function colorOnHover(e){
     const slot = e.target;
-    slot.classList.add("colored-slot");
 
-    let randomColor = document.getElementById('remember').checked
+    let randomColor = document.querySelector('.random-colors').checked
+    let shade = document.querySelector('.shade').checked
+
+    if(!randomColor && !shade){
+        // Simple coloring
+        slot.classList.add("colored-slot");
+    }else if(randomColor){
+        const randomBetween = (min, max) => 
+                            min + Math.floor(Math.random() * (max - min + 1));
+        const rgb = `rgb(`+
+            `${randomBetween(0, 255)},`+
+            `${randomBetween(0, 255)},`+
+            `${randomBetween(0, 255)})`; 
+        slot.style["background-color"] = rgb;
+        console.log(rgb);
+    }else if(shade){
+        // TODO
+    }
+
+
+
+
 }
 
 function addHoverEvents(){
@@ -54,13 +74,12 @@ function deselectOther(e){
             shade.checked = false;
         }
     }
-
-
 }
 
 function addCheckboxEvents(){
     const checkboxes = document.querySelectorAll('input[type=checkbox]');
     checkboxes.forEach(box => box.addEventListener('change',deselectOther));
+    checkboxes.forEach(box => box.checked = false);
 }
 
 
