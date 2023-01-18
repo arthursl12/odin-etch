@@ -1,0 +1,16 @@
+.grid-slot{
+    border: 1px solid black;
+    /* min-width: 10px;
+    min-height: 10px; */
+    box-sizing: border-box;
+    width: calc((200px/16));
+    aspect-ratio: 1;
+}
+
+.grid-container{
+    border: 1px solid red;
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 200px;
+    /* height: 1000; */
+}
