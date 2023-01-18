@@ -1,6 +1,7 @@
 let WIDTH = "700px";
-
-function createGrid(size=16){
+let SIZE = 16;
+let MAX_SIZE = 100;
+function createGrid(size=SIZE){
     // Define grid total width
     const gridContainer = document.querySelector(".grid-container");
     gridContainer.style.width = WIDTH;
@@ -41,11 +42,9 @@ function colorOnHover(e){
             `${randomBetween(0, 255)},`+
             `${randomBetween(0, 255)})`; 
         slot.style["background-color"] = rgb;
-        console.log(rgb);
     }else if(shade){
         let currColor = window.getComputedStyle(slot).backgroundColor;
         if(currColor[0] == 'r'){
-            console.log("RGB");
             let rgbColor = rgbString2Array(currColor);
             let hslColor = RGBToHSL(rgbColor[0], rgbColor[1], rgbColor[2]);
             
@@ -93,10 +92,9 @@ function addHoverEvents(){
 }
 
 function promptNewGrid(){
-    console.log("New Grid");
-    let newSize = Number(prompt("New grid size (max. 100)"));
-    console.log(newSize);
-    createGrid(newSize);
+    let newSize = Number(prompt("New grid size (max. 100)", SIZE));
+    SIZE = Math.min(newSize,MAX_SIZE);
+    createGrid(SIZE);
     addHoverEvents();
 }
 
