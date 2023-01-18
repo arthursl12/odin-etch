@@ -13,4 +13,19 @@ function createGrid(){
 }
 
 
+
+
+function colorOnHover(e){
+    const slot = e.target;
+    slot.classList.add("colored-slot");
+}
+
+
+function addHoverEvents(){
+    const slots = document.querySelectorAll(".grid-slot");
+    slots.forEach(sl => sl.addEventListener('mouseover', colorOnHover));
+}
+
 createGrid();
+addHoverEvents();
+
