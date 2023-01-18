@@ -31,7 +31,8 @@ function colorOnHover(e){
 
     if(!randomColor && !shade){
         // Simple coloring
-        slot.classList.add("colored-slot");
+        // slot.classList.add("colored-slot");
+        slot.style["background-color"] = "black";
     }else if(randomColor){
         const randomBetween = (min, max) => 
                             min + Math.floor(Math.random() * (max - min + 1));
@@ -42,12 +43,48 @@ function colorOnHover(e){
         slot.style["background-color"] = rgb;
         console.log(rgb);
     }else if(shade){
-        // TODO
+        let currColor = window.getComputedStyle(slot).backgroundColor;
+        if(currColor[0] == 'r'){
+            console.log("RGB");
+            let rgbColor = rgbString2Array(currColor);
+            let hslColor = RGBToHSL(rgbColor[0], rgbColor[1], rgbColor[2]);
+            
+            // Darken 10%
+            hslColor[2] -= 10;
+            const hsl = `hsl(`+
+                `${hslColor[0]},`+
+                `${hslColor[1]}%,`+
+                `${hslColor[2]}%)`; 
+
+            slot.style["background-color"] = hsl;
+        }
     }
+}
 
+const RGBToHSL = (r, g, b) => {
+    r /= 255;
+    g /= 255;
+    b /= 255;
+    const l = Math.max(r, g, b);
+    const s = l - Math.min(r, g, b);
+    const h = s
+      ? l === r
+        ? (g - b) / s
+        : l === g
+        ? 2 + (b - r) / s
+        : 4 + (r - g) / s
+      : 0;
+    return [
+      60 * h < 0 ? 60 * h + 360 : 60 * h,
+      100 * (s ? (l <= 0.5 ? s / (2 * l - s) : s / (2 - (2 * l - s))) : 0),
+      (100 * (2 * l - s)) / 2,
+    ];
+};
 
-
-
+function rgbString2Array(rgbstr){
+    rgb = rgbstr.replace(/[^\d,]/g, '').split(',');
+    rgb = rgb.map(str => parseInt(str));
+    return rgb;
 }
 
 function addHoverEvents(){
