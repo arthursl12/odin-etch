@@ -16,11 +16,7 @@ function createGrid(size=16){
         for(let j=0; j<size; j++){
             let slot = document.createElement("div");
             slot.classList.add("grid-slot");
-            
-            
             let newStr = "calc(("+WIDTH+"/"+String(size)+"))";
-            console.log(newStr);
-
             slot.style.width = newStr;
             gridContainer.appendChild(slot);
         }
@@ -30,6 +26,8 @@ function createGrid(size=16){
 function colorOnHover(e){
     const slot = e.target;
     slot.classList.add("colored-slot");
+
+    let randomColor = document.getElementById('remember').checked
 }
 
 function addHoverEvents(){
@@ -45,6 +43,29 @@ function promptNewGrid(){
     addHoverEvents();
 }
 
+function deselectOther(e){
+    // Only allow one 
+    if(e.target.checked){
+        if(e.target.classList[0] == "shade"){
+            const random = document.querySelector(".random-colors");
+            random.checked = false;
+        }else if(e.target.classList[0] == "random-colors"){
+            const shade = document.querySelector(".shade");
+            shade.checked = false;
+        }
+    }
+
+
+}
+
+function addCheckboxEvents(){
+    const checkboxes = document.querySelectorAll('input[type=checkbox]');
+    checkboxes.forEach(box => box.addEventListener('change',deselectOther));
+}
+
+
+
 createGrid();
 addHoverEvents();
+addCheckboxEvents();
 
