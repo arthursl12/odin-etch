@@ -73,12 +73,8 @@ button{
 }
 
 .grid-container{
-    border: 1px solid red;
     display: flex;
     flex-wrap: wrap;
-    /* max-width: 200px; */
-    /* height: 1000; */
-    /* flex-grow: 1; */
     align-self: center;
 }
 
